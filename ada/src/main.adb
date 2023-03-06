@@ -6,11 +6,12 @@ Procedure Main Is
    Num_Threads : Integer;
    can_stop : boolean := false;
    pragma Atomic(can_stop);
+   id: Integer := 0;
 
    task type My_Breaker;
    task body My_Breaker is
    begin
-      delay 5.0;
+      delay 30.0;
       can_stop := true;
    end My_Breaker;
 
@@ -18,14 +19,16 @@ Procedure Main Is
    task body My_Task is
       sum : Long_Long_Integer := 0;
       count: Long_Long_Integer := 0;
+      cid: Integer := id;
    begin
+      id := id + 1;
       loop 
          sum := sum + 6;
          count := count + 1;
          exit when can_stop;
       end loop;
 
-      Put_Line("sum:" & sum'Img & ", count:" & count'Img);
+      Put_Line("id:" & cid'Img & ", sum:" & sum'Img & ", count:" & count'Img);
    end My_Task;
 
    a: My_Breaker;

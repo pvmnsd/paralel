@@ -15,7 +15,7 @@ namespace threaddemo
 
         private void Stoper()
         {
-            Thread.Sleep(5 * 1000);
+            Thread.Sleep(30 * 1000);
             canStop = true;
         }
 
